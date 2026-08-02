@@ -5,17 +5,24 @@
     <script>
       (() => {
         try {
-          const savedTheme = localStorage.getItem(
-            'skillflow-dark-theme',
-          );
+          const savedTheme =
+            localStorage.getItem(
+              'skillflow-dark-theme',
+            );
+
           const isDarkTheme =
-            savedTheme === null || savedTheme === 'true';
+            savedTheme === null ||
+            savedTheme !== 'false';
+
           document.documentElement.classList.toggle(
             'dark-theme',
             isDarkTheme,
           );
+
           document.documentElement.style.colorScheme =
-            isDarkTheme ? 'dark' : 'light';
+            isDarkTheme
+              ? 'dark'
+              : 'light';
         } catch {
           document.documentElement.classList.add(
             'dark-theme',
