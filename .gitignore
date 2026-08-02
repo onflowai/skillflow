@@ -8,8 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 /lightning_logs
 
-node_modules
-dist
+node_modules/
+dist/
+.turbo/
 dist-ssr
 *.local
 
