@@ -1,0 +1,52 @@
+.card {
+  display: flex;
+  min-height: 13rem;
+  flex-direction: column;
+  padding: 1.4rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-surface);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.14);
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.card:hover {
+  border-color: var(--color-primary-border);
+  transform: translateY(-2px);
+}
+
+.label {
+  width: fit-content;
+  margin-bottom: 1rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--color-primary-light);
+  background:
+    linear-gradient(
+        color-mix(in srgb, var(--primary-900) 12%, transparent),
+        color-mix(in srgb, var(--primary-900) 12%, transparent)
+      )
+      padding-box,
+    var(--inference-gradient) border-box;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
