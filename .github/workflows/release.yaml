@@ -1,0 +1,50 @@
+name: Release Please
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    outputs:
+      release_created: ${{ steps.release.outputs['apps/web--release_created'] }}
+      release_tag: ${{ steps.release.outputs['apps/web--tag_name'] }}
+      release_sha: ${{ steps.release.outputs['apps/web--sha'] }}
+
+    steps:
+      - name: Create or update release
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target-branch: main
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish-image:
+    needs: release-please
+
+    if: needs.release-please.outputs.release_created == 'true'
+
+    permissions:
+      contents: read
+      packages: write
+
+    uses: ./.github/workflows/server.yaml
+
+    with:
+      source_sha: ${{ needs.release-please.outputs.release_sha }}
+      release_tag: ${{ needs.release-please.outputs.release_tag }}
